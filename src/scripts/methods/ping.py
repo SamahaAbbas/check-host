@@ -6,30 +6,32 @@ from src.scripts.loading_process import *
 
 
 def ping_data_parser(result_data, data_frame_temp, id_key):
-	for count, nod_location in enumerate(result_data, start=0):
-		# id key data // api_data --> id_key_part()
-		country = id_key["nodes"][nod_location][1]
-		city    = id_key["nodes"][nod_location][2]
-		if result_data[nod_location] != None:
-			# result data // api_data --> result_data_part()
-			data_in_result_data = result_data[nod_location][0]
-			if data_in_result_data == None:
-				data_frame_temp.loc[count] = [f"{country}, {city}", "no data", "no data", "no data"]
-			if data_in_result_data != None:
-				# result data // data_in_result_data
-				time_1, time_2, time_3, time_4 = round(data_in_result_data[0][1] * 1000, 2), \
-				                                 round(data_in_result_data[1][1] * 1000, 2), \
-				                                 round(data_in_result_data[2][1] * 1000, 2), \
-				                                 round(data_in_result_data[3][1] * 1000, 2)
-				code_1, code_2, code_3, code_4 = data_in_result_data[0][0], \
-				                                 data_in_result_data[1][0], \
-				                                 data_in_result_data[2][0], \
-				                                 data_in_result_data[3][0]
-				ip_address = data_in_result_data[0][2]
-				data_frame_temp.loc[count] = [f"{country}, {city}", f"{time_1}/{time_2}/{time_3}/{time_4} ms.", f"{code_1}/{code_2}/{code_3}/{code_4}", ip_address]
-	# remove index // set index to ""
-	data_frame_temp.index = [""] * len(data_frame_temp)
-	return data_frame_temp
+    for count, nod_location in enumerate(result_data, start=0):
+        # id key data // api_data --> id_key_part()
+        country = id_key["nodes"][nod_location][1]
+        city    = id_key["nodes"][nod_location][2]
+        if country.lower() == "iran":  # Check if the country is Iran
+            if result_data[nod_location] != None:
+                # result data // api_data --> result_data_part()
+                data_in_result_data = result_data[nod_location][0]
+                if data_in_result_data == None:
+                    data_frame_temp.loc[count] = [f"{country}, {city}", "no data", "no data", "no data"]
+                if data_in_result_data != None:
+                    # result data // data_in_result_data
+                    time_1, time_2, time_3, time_4 = round(data_in_result_data[0][1] * 1000, 2), \
+                                                     round(data_in_result_data[1][1] * 1000, 2), \
+                                                     round(data_in_result_data[2][1] * 1000, 2), \
+                                                     round(data_in_result_data[3][1] * 1000, 2)
+                    code_1, code_2, code_3, code_4 = data_in_result_data[0][0], \
+                                                     data_in_result_data[1][0], \
+                                                     data_in_result_data[2][0], \
+                                                     data_in_result_data[3][0]
+                    ip_address = data_in_result_data[0][2]
+                    data_frame_temp.loc[count] = [f"{country}, {city}", f"{time_1}/{time_2}/{time_3}/{time_4} ms.", f"{code_1}/{code_2}/{code_3}/{code_4}", ip_address]
+    # remove index // set index to ""
+    data_frame_temp.index = [""] * len(data_frame_temp)
+    return data_frame_temp
+
 
 
 def ping_data_part(data_frame, id_key, index_count):
