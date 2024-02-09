@@ -71,24 +71,23 @@ def arg_parser_part():
     parser.add_argument("--udp", dest="udp", action="store_true")
     parser.add_argument("--dns", dest="dns", action="store_true")
     return parser.parse_args()
-
-
 if __name__ == '__main__':
-    print(logo_part())
     args = arg_parser_part()
-    
+
+    ip_address = None  # Initialize ip_address variable
+
     # Check if file argument is provided
     if args.file:
         with open(args.file, 'r') as file:
             ip_addresses = file.read().splitlines()
-            
-        print("{ info } PING started at:", datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
-        
+
+
         # Perform ping check for each IP address
         for ip in ip_addresses:
             args.target = ip
-            methods_part()
-            
-        print("{ info } PING ended in:", datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+            print(f"IP being checked: {ip}")  # Print the IP address being checked
+            ip_address, status = ping_part(args)  # Get IP address and status
+            print(f"Status: {status}")
+
     else:
         methods_part()
