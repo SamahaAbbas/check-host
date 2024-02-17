@@ -78,6 +78,7 @@ pip3 install requests
 ```
 ```
 pip3 install prettytable
+pip3 install pandas
 ```
 
 ## install:
