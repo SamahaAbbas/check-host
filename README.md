@@ -89,6 +89,8 @@ cd check-host/
 ## run:
 ``` bash
 python3 check-host.py -h
+python3 check-host.py --ping -f test.txt
+
 ```
 
 
