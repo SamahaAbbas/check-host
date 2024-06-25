@@ -56,14 +56,12 @@ def ping_data_part(data_frame, id_key, index_count):
 
 def ping_part(args):
     data_frame = pandas.DataFrame(columns=["location", "time", "code", "IP address"])
-    # data frame display width limit // 150
     pandas.set_option("display.width", 150)
     target = args.target
-    # index_count = index // index_frame
     index_count = 0
     id_key = id_key_part(target, "ping")
     data_frame, timeout_flag = ping_data_part(data_frame, id_key, index_count)
-    ip_address = id_key.get('ip', 'Unknown')  # Get the IP address from id_key or set as 'Unknown'
+    ip_address = id_key.get('ip', 'Unknown')
     if timeout_flag:
         return ip_address, "\033[91mBAD\033[0m"  # Colored red for BAD
     else:
