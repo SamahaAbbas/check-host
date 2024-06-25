@@ -11,7 +11,7 @@ from src.scripts.methods.udp import udp_part
 from src.scripts.methods.dns import dns_part
 
 # Telegram bot token
-TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN'
+TOKEN = '7164751457:AAHdpFIMG03c1GqB5ON4pOv_gD8bbkF7CDw'
 ALLOWED_ID = 363719626
 
 def start(update, context):
